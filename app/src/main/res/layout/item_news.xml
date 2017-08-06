@@ -21,7 +21,8 @@
             android:id="@+id/ivNewsPhoto"
             android:layout_width="match_parent"
             android:layout_height="160dp"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@mipmap/ic_launcher"
+            android:scaleType="centerCrop"/>
 
         <TextView
             android:id="@+id/tvNewsTitle"
@@ -37,7 +38,7 @@
             android:paddingBottom="@dimen/padding_top"
             />
         <TextView
-            android:id="@+id/tvNews"
+            android:id="@+id/tvNewsDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="3"
