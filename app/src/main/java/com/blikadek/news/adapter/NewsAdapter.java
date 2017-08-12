@@ -66,6 +66,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         return mNewsList.size();
     }
 
+    public void setData(List<ArticlesItem> datas){
+        this.mNewsList.clear();
+        mNewsList.addAll(datas);
+        notifyDataSetChanged();
+    }
+
 
     //ViewHolder
     static class NewsViewHolder extends RecyclerView.ViewHolder{
