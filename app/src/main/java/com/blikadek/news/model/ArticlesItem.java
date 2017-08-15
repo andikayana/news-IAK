@@ -1,8 +1,12 @@
 package com.blikadek.news.model;
 
+import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
 public class ArticlesItem{
+
+	public ArticlesItem() {
+	}
 
 	@SerializedName("publishedAt")
 	private String publishedAt;
@@ -70,6 +74,14 @@ public class ArticlesItem{
 		this.url = url;
 	}
 
+	public String toJson() {
+		return new Gson().toJson(this);
+	}
+
+	public ArticlesItem fromJson(String newsJson){
+		return new Gson().fromJson(newsJson, ArticlesItem.class);
+	}
+
 	@Override
  	public String toString(){
 		return 
@@ -82,4 +94,6 @@ public class ArticlesItem{
 			",url = '" + url + '\'' + 
 			"}";
 		}
+
+
 }

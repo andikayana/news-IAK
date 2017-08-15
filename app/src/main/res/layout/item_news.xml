@@ -38,16 +38,26 @@
             android:paddingRight="@dimen/padding_title"
             android:textColor="@android:color/black"/>
         <TextView
-            android:id="@+id/tvNewsDesc"
+        android:id="@+id/tvNewsDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="3"
+        android:ellipsize="end"
+        android:paddingLeft="@dimen/padding_title"
+        android:paddingRight="@dimen/padding_title"
+        android:paddingBottom="6dp"
+        android:text="aaa aaaaa aaaaa "
+        android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/tvReadMOre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="3"
-            android:ellipsize="end"
-            android:paddingLeft="@dimen/padding_title"
-            android:paddingRight="@dimen/padding_title"
-            android:paddingBottom="6dp"
-            android:text="aaa aaaaa aaaaa "
-            android:textSize="14sp"/>
+            android:maxLines="1"
+            android:text="READ MORE"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:paddingBottom="6dp"/>
 
     </LinearLayout>
 

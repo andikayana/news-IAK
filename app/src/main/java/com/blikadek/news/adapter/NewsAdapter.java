@@ -1,9 +1,7 @@
 package com.blikadek.news.adapter;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,19 +18,17 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.android.volley.VolleyLog.TAG;
-
 /**
  * Created by M13x5aY on 06/08/2017.
  */
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder>{
 
-    List<ArticlesItem> mNewsList;
-    private ArticlesItemOnClickListener mArticlesClickCallBack;
+    private List<ArticlesItem> articlesItemList;
+    private NewsClickListener mNewsClickListener;
 
-    public NewsAdapter(List<ArticlesItem> mNewsList) {
-        this.mNewsList = mNewsList;
+    public NewsAdapter(List<ArticlesItem> articlesItemList) {
+        this.articlesItemList = articlesItemList;
     }
 
     @Override
@@ -44,62 +40,65 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     }
 
     @Override
-    public void onBindViewHolder( final NewsViewHolder holder, final int position) {
-        final ArticlesItem data = mNewsList.get(position);
-        holder.bind(data, position);
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(v.getContext(), DetailActivity.class);
-
-                intent.putExtra("url", data.getUrl());
-
-                v.getContext().startActivity(intent);
-            }
+    public void onBindViewHolder( NewsViewHolder holder, final int position) {
+        holder.bind(articlesItemList.get(position));
+        holder.tvReadMore.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 if (mNewsClickListener != null){
+                     mNewsClickListener.onItemNewsClicked(
+                             articlesItemList.get(position)
+                     );
+                 }
+             }
         });
+    }
+
+    public void setItemClickListener(NewsClickListener clickListener) {
+        if (clickListener != null) {
+            mNewsClickListener = clickListener;
+        }
     }
 
     @Override
     public int getItemCount() {
-        return mNewsList.size();
+        return articlesItemList.size();
     }
 
     public void setData(List<ArticlesItem> datas){
-        this.mNewsList.clear();
-        mNewsList.addAll(datas);
+        this.articlesItemList.clear();
+        articlesItemList.addAll(datas);
         notifyDataSetChanged();
     }
 
 
-    //ViewHolder
-    static class NewsViewHolder extends RecyclerView.ViewHolder{
+    //ViewHolder untuk adapter
+    static class NewsViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.ivNewsPhoto) ImageView ivNewsPhoto;
-        @BindView(R.id.tvNewsTitle) TextView tvNewsTitle;
-        @BindView(R.id.tvNewsDesc) TextView tvNewsDesc;
-        @BindView(R.id.url) TextView url;
+        @BindView(R.id.ivNewsPhoto)
+        ImageView ivNewsPhoto;
+        @BindView(R.id.tvNewsTitle)
+        TextView tvNewsTitle;
+        @BindView(R.id.tvNewsDesc)
+        TextView tvNewsDesc;
+        @BindView(R.id.tvReadMOre)
+        TextView tvReadMore;
+        @BindView(R.id.url)
+        TextView url;
 
         public NewsViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(ArticlesItem newsitem, int position) {
+        public void bind(ArticlesItem newsitem) {
             tvNewsTitle.setText(newsitem.getTitle());
             tvNewsDesc.setText(newsitem.getDescription());
             Glide.with(ivNewsPhoto.getContext())
                     .load(newsitem.getUrlToImage())
                     .into(ivNewsPhoto);
             url.setText(newsitem.getUrl());
-
         }
 
-
-    }
-
-    public interface ArticlesItemOnClickListener {
-        void onHotNewsItemClick(ArticlesItem data);
     }
 }
