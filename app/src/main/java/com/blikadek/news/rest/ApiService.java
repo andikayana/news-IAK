@@ -14,4 +14,8 @@ public interface ApiService {
             @Query("source") String source,
             @Query("apiKey") String apiKey
     );
+    /*@GET("sources")
+    Call<ApiResponse> getTechCrunchArticle(
+            @Query("language") String language
+    );*/
 }

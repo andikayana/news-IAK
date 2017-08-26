@@ -100,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements NewsClickListener
                 Log.e(TAG, "onFailure: ", t);
             }
         });
+
     }
 
     @Override

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/src_bbc_news"
+        android:title="BCC News"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/src_cnn"
+        android:title="CNN"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/src_engadget"
+        android:title="Engadget"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/src_techcrunch"
+        android:title="TechCrunch"
+        app:showAsAction="never"/>
+</menu>

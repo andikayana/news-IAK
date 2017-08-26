@@ -75,16 +75,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     //ViewHolder untuk adapter
     static class NewsViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.ivNewsPhoto)
-        ImageView ivNewsPhoto;
-        @BindView(R.id.tvNewsTitle)
-        TextView tvNewsTitle;
-        @BindView(R.id.tvNewsDesc)
-        TextView tvNewsDesc;
-        @BindView(R.id.tvReadMOre)
-        TextView tvReadMore;
-        @BindView(R.id.url)
-        TextView url;
+        @BindView(R.id.ivNewsPhoto) ImageView ivNewsPhoto;
+        @BindView(R.id.tvNewsTitle) TextView tvNewsTitle;
+        @BindView(R.id.tvNewsDesc) TextView tvNewsDesc;
+        @BindView(R.id.tvAuthor) TextView tvAuthor;
+        @BindView(R.id.tvPublishedAt) TextView tvPublishedAt;
+        @BindView(R.id.tvReadMOre) TextView tvReadMore;
 
         public NewsViewHolder(View itemView) {
             super(itemView);
@@ -94,10 +90,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         public void bind(ArticlesItem newsitem) {
             tvNewsTitle.setText(newsitem.getTitle());
             tvNewsDesc.setText(newsitem.getDescription());
+            tvAuthor.setText(newsitem.getAuthor());
+            tvPublishedAt.setText(newsitem.getPublishedAt());
             Glide.with(ivNewsPhoto.getContext())
                     .load(newsitem.getUrlToImage())
                     .into(ivNewsPhoto);
-            url.setText(newsitem.getUrl());
+
         }
 
     }
