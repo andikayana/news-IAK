@@ -1,12 +1,12 @@
 package com.blikadek.news.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -17,7 +17,6 @@ import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.Button;
 import android.widget.ProgressBar;
 
 import com.blikadek.news.R;
@@ -39,6 +38,8 @@ public class DetailActivity extends AppCompatActivity {
     @BindView(R.id.nestedScrollView) NestedScrollView nestedScrollView;
     private static final String KEY_EXTRA_NEWS="news";
     private ArticlesItem mAtriclesItem;
+
+    private boolean mIsNewsFavorite = false;
 
     public static void strat(Context context, ArticlesItem articlesItem){
         Intent intent = new Intent(context, DetailActivity.class);
@@ -156,6 +157,14 @@ public class DetailActivity extends AppCompatActivity {
                 } else {
                     fabFavorite.hide();
                 }
+            }
+        });
+
+        fabFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mIsNewsFavorite = !mIsNewsFavorite;
+                fabFavorite.setImageResource(mIsNewsFavorite ? R.drawable.ic_action_star_selected : R.drawable.ic_action_star);
             }
         });
     }

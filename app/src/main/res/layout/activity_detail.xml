@@ -67,7 +67,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:src="@drawable/ic_action_star"
-        android:layout_margin="16dp" />
+        android:layout_margin="16dp"
+        android:tint="#fff"/>
 
 </android.support.design.widget.CoordinatorLayout>
 <!--
