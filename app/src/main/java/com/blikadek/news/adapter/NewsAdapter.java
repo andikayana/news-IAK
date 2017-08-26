@@ -1,6 +1,5 @@
 package com.blikadek.news.adapter;
 
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blikadek.news.R;
-import com.blikadek.news.activity.DetailActivity;
 import com.blikadek.news.model.ArticlesItem;
 import com.bumptech.glide.Glide;
 
