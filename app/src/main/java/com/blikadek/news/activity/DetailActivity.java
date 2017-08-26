@@ -1,21 +1,20 @@
 package com.blikadek.news.activity;
 
-import android.app.Activity;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
-import android.nfc.Tag;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.blikadek.news.R;
 import com.blikadek.news.model.ArticlesItem;
@@ -29,8 +28,9 @@ public class DetailActivity extends AppCompatActivity {
     private static final String TAG = DetailActivity.class.getSimpleName();
 
     @BindView(R.id.webView) WebView mWebView;
-    @BindView(R.id.progressBar)
-    ProgressBar progressBar;
+    @BindView(R.id.progressBar) ProgressBar progressBar;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     private static final String KEY_EXTRA_NEWS="news";
     private ArticlesItem mAtriclesItem;
 
@@ -47,8 +47,6 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         //mWebView.getSettings().setJavaScriptEnabled(true);
         //mWebView.setWebChromeClient(new WebChromeClient());
 
@@ -57,12 +55,27 @@ public class DetailActivity extends AppCompatActivity {
             setupWebView();
             mWebView.loadUrl(mAtriclesItem.getUrl());
 
+
             //setprogressbar
             progressBar.setMax(100);
+
+            setupActionBAr();
             //Toast.makeText(this, "Show news " + mAtriclesItem.getTitle(), Toast.LENGTH_SHORT).show();
         }else{
             finish();
         }
+
+
+        Drawable drawable = ContextCompat.getDrawable(this, R.drawable.ic_action_name);
+        getSupportActionBar().setHomeAsUpIndicator(drawable);
+
+        getSupportActionBar().setTitle(mAtriclesItem.getTitle());
+        getSupportActionBar().setSubtitle(mAtriclesItem.getUrl());
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+        setupActionBAr();
 
 
     }
@@ -88,19 +101,42 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
-        WebSettings webSettings = mWebView.getSettings();
+        WebSettings webViewSettings = mWebView.getSettings();
 
         //enable zoom
-        webSettings.setSupportZoom(true);
-        webSettings.setBuiltInZoomControls(true);
-        webSettings.setDisplayZoomControls(true);
-
+        webViewSettings.setSupportZoom(true);
+        webViewSettings.setBuiltInZoomControls(true);
+        webViewSettings.setDisplayZoomControls(true);
+        //enable javascript
         mWebView.getSettings().setJavaScriptEnabled(true);
 
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == android.R.id.home){
+            this.finish();
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setupActionBAr(){
+        setSupportActionBar(toolbar);
+       ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null){
+            return;
+        }
+
+        Drawable drawable = ContextCompat.getDrawable(this, R.drawable.ic_action_name);
+        actionBar.setHomeAsUpIndicator(drawable);
+
+        actionBar.setTitle(mAtriclesItem.getTitle());
+        actionBar.setSubtitle(mAtriclesItem.getUrl());
+
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeButtonEnabled(true);
+
+
     }
 }

@@ -77,14 +77,6 @@ public class ArticlesItem implements Parcelable {
 		this.url = url;
 	}
 
-	public String toJson() {
-		return new Gson().toJson(this);
-	}
-
-	public ArticlesItem fromJson(String newsJson){
-		return new Gson().fromJson(newsJson, ArticlesItem.class);
-	}
-
 	@Override
  	public String toString(){
 		return 
