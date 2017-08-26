@@ -1,10 +1,13 @@
 package com.blikadek.news.activity;
 
 import android.graphics.drawable.Drawable;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,6 +17,7 @@ import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.ProgressBar;
 
 import com.blikadek.news.R;
@@ -29,8 +33,10 @@ public class DetailActivity extends AppCompatActivity {
 
     @BindView(R.id.webView) WebView mWebView;
     @BindView(R.id.progressBar) ProgressBar progressBar;
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.coordinatorLayout) CoordinatorLayout coordinatorLayout;
+    @BindView(R.id.fabFavorite) FloatingActionButton fabFavorite;
+    @BindView(R.id.nestedScrollView) NestedScrollView nestedScrollView;
     private static final String KEY_EXTRA_NEWS="news";
     private ArticlesItem mAtriclesItem;
 
@@ -76,6 +82,7 @@ public class DetailActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
 
         setupActionBAr();
+        setupFab();
 
 
     }
@@ -138,5 +145,18 @@ public class DetailActivity extends AppCompatActivity {
         actionBar.setHomeButtonEnabled(true);
 
 
+    }
+
+    public void setupFab(){
+        nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if ( oldScrollY > scrollY ){
+                    fabFavorite.show();
+                } else {
+                    fabFavorite.hide();
+                }
+            }
+        });
     }
 }
